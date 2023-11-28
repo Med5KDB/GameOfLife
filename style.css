@@ -27,7 +27,7 @@ td {
 td.dead {
     background-color: transparent;
 }
-td.live {
+td.alive {
     background-color: #5560b4;
     border-radius: 10px;
 }

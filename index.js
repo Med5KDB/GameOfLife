@@ -58,11 +58,11 @@ function createTable() {
 function cellClickHandler() {
   const [row, col] = this.id.split("_");
   let classes = this.getAttribute("class");
-  if (classes.includes("live")) {
+  if (classes.includes("alive")) {
     this.setAttribute("class", "dead");
     grid[row][col] = 0;
   } else {
-    this.setAttribute("class", "live");
+    this.setAttribute("class", "alive");
     grid[row][col] = 1;
   }
 }
