@@ -33,6 +33,11 @@ function copyAndResetGrid() {
     }
   }
 }
+function init() {
+  createTable();
+  initializeGrids();
+  resetGrids();
+}
 
 function createTable() {
   var gridContainer = document.getElementById("grid-container");
@@ -47,7 +52,7 @@ function createTable() {
       let cell = document.createElement("td");
       cell.setAttribute("id", i + "_" + j);
       cell.setAttribute("class", "dead");
-      cell.onclick = cellClickHandler;
+      cell.onclick = changeCellState;
       tr.appendChild(cell);
     }
     table.appendChild(tr);
@@ -55,7 +60,7 @@ function createTable() {
   gridContainer.appendChild(table);
 }
 
-function cellClickHandler() {
+function changeCellState() {
   const [row, col] = this.id.split("_");
   let classes = this.getAttribute("class");
   if (classes.includes("alive")) {
@@ -66,3 +71,5 @@ function cellClickHandler() {
     grid[row][col] = 1;
   }
 }
+
+window.onload = init;
