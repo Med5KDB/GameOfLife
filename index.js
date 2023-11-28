@@ -72,4 +72,18 @@ function changeCellState() {
   }
 }
 
+function initializeButtons() {
+  const startBtn = document.getElementById("start-btn");
+  const clearBtn = document.getElementById("clear-btn");
+  const randomBtn = document.getElementById("random-btn");
+
+  startBtn.onclick = startBtnHandler;
+  clearBtn.onclick = clearBtnHandler;
+  randomBtn.onclick = randomBtnHandler; 
+}
+
+function startBtnHandler(){}
+function clearBtnHandler(){}
+function randomBtnHandler(){}
+
 window.onload = init;
