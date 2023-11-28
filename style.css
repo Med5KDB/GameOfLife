@@ -1,0 +1,61 @@
+body {
+    padding: 20px;
+    background-color: #807d7d;
+}
+.game-title {
+    background-color: #1a73ab;
+    height: 80px;
+    color: rgb(237, 237, 237)
+}
+h1{
+    padding-top: 20px;
+    padding-left: 30px;
+}
+#grid-container{
+    padding-bottom: 12px;
+}
+table {
+    background-color: #d1d676;
+    border-spacing: 0;
+}
+td {
+    border: solid #f6f8ed;
+    width: 90px;
+    height: 20px;
+    border-radius: 5px;
+}
+td.dead {
+    background-color: transparent;
+}
+td.live {
+    background-color: #5560b4;
+    border-radius: 10px;
+}
+.util-funny{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.control-buttons{
+    display: flex;
+    flex-direction: row;
+}
+.game-footer{
+    color: rgb(237, 237, 237);
+}
+#start-btn, #clear-btn, #random-btn {
+    border-radius: 5px;
+    padding: .85em;
+    cursor: pointer;
+
+}
+#start-btn {
+    border: none;
+    background: linear-gradient(to bottom right, #4acf72, #61af79  ) ;
+}
+#clear-btn {
+    background: linear-gradient(#d90d25 #c74857) ;
+}
+#random-btn {
+    background-color: #8b8f8f;
+}
