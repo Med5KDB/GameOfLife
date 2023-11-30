@@ -128,7 +128,7 @@ function changeNextGenState() {
   updateView();
 }
 function applyGameRules(row, col) {
-  const aliveNeighborsNum = countCellAliveNeighbors(row, col)
+  let aliveNeighborsNum = countCellAliveNeighbors(row, col)
   if (grid[row][col] == 1 ){
     if(aliveNeighborsNum < 2) {
       nextGrid[row][col] = 0;
