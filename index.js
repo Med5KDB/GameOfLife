@@ -9,12 +9,12 @@ let nextGrid = new Array(rows);
 let timer;
 let reproTime = 100;
 
-function initializeGrids () {
+function initializeGrids() {
   for (let i = 0; i < rows; i++) {
     grid[i] = new Array(cols);
     nextGrid[i] = new Array(cols);
   }
-};
+}
 
 function resetGrids() {
   for (let i = 0; i < rows; i++) {
@@ -75,14 +75,14 @@ function changeCellState() {
 function updateView() {
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
-        let cell = document.getElementById(i + "_" + j);
-        if (grid[i][j] == 0) {
-            cell.setAttribute("class", "dead");
-        } else {
-            cell.setAttribute("class", "live");
-        }
+      let cell = document.getElementById(i + "_" + j);
+      if (grid[i][j] == 0) {
+        cell.setAttribute("class", "dead");
+      } else {
+        cell.setAttribute("class", "alive");
+      }
     }
-}
+  }
 }
 
 function initializeButtons() {
@@ -92,55 +92,78 @@ function initializeButtons() {
 
   startBtn.onclick = startBtnHandler;
   clearBtn.onclick = clearBtnHandler;
-  randomBtn.onclick = randomBtnHandler; 
+  randomBtn.onclick = randomBtnHandler;
 }
 
-function startBtnHandler(){
+function startBtnHandler() {
   if (isPlaying) {
     this.innerHTML = "Continue";
     isPlaying = false;
     // Stop the timer associated with the game loop
     clearTimeout(timer);
-  }else{
-    this.innerHTML = "Pause"
+  } else {
+    this.innerHTML = "Pause";
     isPlaying = true;
     play();
   }
 }
-function clearBtnHandler(){}
-function randomBtnHandler(){}
+function randomBtnHandler() {
+  if (isPlaying) return;
+  clearBtnHandler();
+  for (var i = 0; i < rows; i++) {
+      for (var j = 0; j < cols; j++) {
+          var isAlive = Math.round(Math.random());
+          if (isAlive == 1) {
+              var cell = document.getElementById(i + "_" + j);
+              cell.setAttribute("class", "alive");
+              grid[i][j] = 1;
+          }
+      }
+  }
+}
+
+function clearBtnHandler() {
+  if (!isPlaying) {
+    let cellsList = document.getElementsByClassName("alive");
+    let cells = Array.from(cellsList);
+    cells.forEach((cell) => {
+      cell.setAttribute("class", "dead");
+    });
+    resetGrids();
+  }
+}
 
 function play() {
   changeNextGenState();
-  if(isPlaying) {
+  if (isPlaying) {
     timer = setTimeout(play, reproTime);
   }
 }
 function changeNextGenState() {
-  for(let i=0; i<rows; i++) {
-    for(let j=0; j<cols; j++) {
-      applyGameRules(i,j);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      applyGameRules(i, j);
     }
-  } 
+  }
   // Call this function to logically change cell state
   copyAndResetGrid();
   // Call this function to change the cell state in UI
   updateView();
 }
 function applyGameRules(row, col) {
-  let aliveNeighborsNum = countCellAliveNeighbors(row, col)
-  if (grid[row][col] == 1 ){
-    if(aliveNeighborsNum < 2) {
+  let aliveNeighborsNum = countCellAliveNeighbors(row, col);
+  if (grid[row][col] == 1) {
+    if (aliveNeighborsNum < 2) {
+      nextGrid[row][col] = 0;
+    } else if (aliveNeighborsNum == 2 || aliveNeighborsNum == 3) {
+      nextGrid[row][col] = 1;
+    } else if (aliveNeighborsNum > 3) {
       nextGrid[row][col] = 0;
     }
-    if(aliveNeighborsNum == 2 || aliveNeighborsNum == 3) {
+  } else if (grid[row][col] == 0) {
+    if (aliveNeighborsNum == 3) {
       nextGrid[row][col] = 1;
     }
-    if(aliveNeighborsNum > 3) {
-      nextGrid[row][col] = 0;
-    }  
-  } else if(grid[row][col] == 0 && aliveNeighborsNum == 3) {
-    nextGrid[i][j] = 1;
   }
 }
 
@@ -148,7 +171,13 @@ function getNeighbors(row, col) {
   const neighbors = [];
   for (let i = row - 1; i <= row + 1; i++) {
     for (let j = col - 1; j <= col + 1; j++) {
-      if (i>=0 && j>=0 && i < rows && j < cols && !(i === row && j === col)) {
+      if (
+        i >= 0 &&
+        j >= 0 &&
+        i < rows &&
+        j < cols &&
+        !(i === row && j === col)
+      ) {
         neighbors.push([i, j]);
       }
     }
@@ -157,11 +186,11 @@ function getNeighbors(row, col) {
 }
 
 function countCellAliveNeighbors(row, col) {
-  const neighbors = getNeighbors(row, col)
+  const neighbors = getNeighbors(row, col);
   let aliveNeighbors = 0;
-  for (const [i,j] of neighbors) {
+  for (const [i, j] of neighbors) {
     const cell = document.getElementById(i + "_" + j);
-    if(cell.classList.contains("alive")) {
+    if (cell.classList.contains("alive")) {
       aliveNeighbors++;
     }
   }
