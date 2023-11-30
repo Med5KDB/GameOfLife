@@ -26,8 +26,8 @@ function resetGrids() {
 }
 
 function copyAndResetGrid() {
-  for (var i = 0; i < rows; i++) {
-    for (var j = 0; j < cols; j++) {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
       grid[i][j] = nextGrid[i][j];
       nextGrid[i][j] = 0;
     }
@@ -100,7 +100,7 @@ function randomBtnHandler(){}
 function play() {
   changeNextGenState();
   if(isPlaying) {
-    timer = setTimeout(play, reproductionTime);
+    timer = setTimeout(play, reproTime);
   }
 }
 function changeNextGenState() {
@@ -109,6 +109,7 @@ function changeNextGenState() {
       applyGameRules(i,j);
     }
   } 
+  copyAndResetGrid();
 }
 function applyGameRules(row, col) {
   const aliveNeighborsNum = countCellAliveNeighbors(row, col)
