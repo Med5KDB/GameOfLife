@@ -119,7 +119,7 @@ function getNeighbors(row, col) {
   const neighbors = [];
   for (let i = row - 1; i <= row + 1; i++) {
     for (let j = col - 1; j <= col + 1; j++) {
-      if (i < rows && j < cols) {
+      if (i>=0 && j>=0 && i < rows && j < cols) {
         neighbors.push([i, j]);
       }
     }
