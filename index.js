@@ -110,6 +110,7 @@ function changeNextGenState() {
     }
   } 
   copyAndResetGrid();
+  changeCellState();
 }
 function applyGameRules(row, col) {
   const aliveNeighborsNum = countCellAliveNeighbors(row, col)
