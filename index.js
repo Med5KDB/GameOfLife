@@ -112,12 +112,31 @@ function changeNextGenState() {
 }
 function applyGameRules(row, column) {
   const neighbors = countCellAliveNeighbors(row, column)
-  if (grid[i][j])
+  if (grid[i][j]){}
 }
 
-function countCellAliveNeighbors(row, column) {
-  let allNeighbors = 0;
-  
+function getNeighbors(row, col) {
+  const neighbors = [];
+  for (let i = row - 1; i <= row + 1; i++) {
+    for (let j = col - 1; j <= col + 1; j++) {
+      if (i < rows && j < cols) {
+        neighbors.push([i, j]);
+      }
+    }
+  }
+  return neighbors;
+}
+
+function countCellAliveNeighbors(row, col) {
+  const neighbors = getNeighbors(row, col)
+  let aliveNeighbors = 0;
+  for (const [i,j] of neighbors) {
+    const cell = document.getElementById(i + "_" + j);
+    if(cell.classList.contains("alive")) {
+      aliveNeighbors++;
+    }
+  }
+  return aliveNeighbors;
 }
 
 window.onload = init;
