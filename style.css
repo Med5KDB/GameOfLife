@@ -39,23 +39,26 @@ td.alive {
 .control-buttons{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 .game-footer{
     color: rgb(237, 237, 237);
 }
 #start-btn, #clear-btn, #random-btn {
     border-radius: 5px;
-    padding: .85em;
+    padding: .85rem;
     cursor: pointer;
-
+    height: 3rem;
+    width: 6rem;
+    font-weight: 400;
+    font-size: 18px;
 }
 #start-btn {
-    border: none;
-    background: linear-gradient(to bottom right, #4acf72, #61af79  ) ;
+    background: linear-gradient(to bottom right, #63cf83, #61af79  ) ;
 }
 #clear-btn {
-    background: linear-gradient(#d90d25 #c74857) ;
+    background:  #e23549 ;
 }
 #random-btn {
-    background-color: #8b8f8f;
+    background-color: #7fd4d4;
 }

@@ -82,8 +82,42 @@ function initializeButtons() {
   randomBtn.onclick = randomBtnHandler; 
 }
 
-function startBtnHandler(){}
+function startBtnHandler(){
+  if (isPlaying) {
+    this.innerHtml = "Continue";
+    isPlaying = false;
+    // Stop the timer associated with the game loop
+    clearTimeout(timer);
+  }else{
+    this.innerHtml = "Pause"
+    isPlaying = true;
+    play();
+  }
+}
 function clearBtnHandler(){}
 function randomBtnHandler(){}
+
+function play() {
+  changeNextGenState();
+  if(isPlaying) {
+    timer = setTimeout(play, reproductionTime);
+  }
+}
+function changeNextGenState() {
+  for(let i; i<rows; i++) {
+    for(let j; j<rows; j++) {
+      applyGameRules(i,j);
+    }
+  } 
+}
+function applyGameRules(row, column) {
+  const neighbors = countCellAliveNeighbors(row, column)
+  if (grid[i][j])
+}
+
+function countCellAliveNeighbors(row, column) {
+  let allNeighbors = 0;
+  
+}
 
 window.onload = init;
