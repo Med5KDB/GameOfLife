@@ -131,13 +131,13 @@ function applyGameRules(row, col) {
   const aliveNeighborsNum = countCellAliveNeighbors(row, col)
   if (grid[row][col] == 1 ){
     if(aliveNeighborsNum < 2) {
-      nextGrid[row][col] == 0;
+      nextGrid[row][col] = 0;
     }
     if(aliveNeighborsNum == 2 || aliveNeighborsNum == 3) {
-      nextGrid[row][col] == 1;
+      nextGrid[row][col] = 1;
     }
     if(aliveNeighborsNum > 3) {
-      nextGrid[row][col] == 0;
+      nextGrid[row][col] = 0;
     }  
   } else if(grid[row][col] == 0 && aliveNeighborsNum == 3) {
     nextGrid[i][j] = 1;
