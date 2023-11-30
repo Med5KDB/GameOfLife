@@ -37,6 +37,7 @@ function init() {
   createTable();
   initializeGrids();
   resetGrids();
+  initializeButtons();
 }
 
 function createTable() {
@@ -71,6 +72,18 @@ function changeCellState() {
     grid[row][col] = 1;
   }
 }
+function updateView() {
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+        let cell = document.getElementById(i + "_" + j);
+        if (grid[i][j] == 0) {
+            cell.setAttribute("class", "dead");
+        } else {
+            cell.setAttribute("class", "live");
+        }
+    }
+}
+}
 
 function initializeButtons() {
   const startBtn = document.getElementById("start-btn");
@@ -84,12 +97,12 @@ function initializeButtons() {
 
 function startBtnHandler(){
   if (isPlaying) {
-    this.innerHtml = "Continue";
+    this.innerHTML = "Continue";
     isPlaying = false;
     // Stop the timer associated with the game loop
     clearTimeout(timer);
   }else{
-    this.innerHtml = "Pause"
+    this.innerHTML = "Pause"
     isPlaying = true;
     play();
   }
@@ -104,13 +117,15 @@ function play() {
   }
 }
 function changeNextGenState() {
-  for(let i; i<rows; i++) {
-    for(let j; j<rows; j++) {
+  for(let i=0; i<rows; i++) {
+    for(let j=0; j<cols; j++) {
       applyGameRules(i,j);
     }
   } 
+  // Call this function to logically change cell state
   copyAndResetGrid();
-  changeCellState();
+  // Call this function to change the cell state in UI
+  updateView();
 }
 function applyGameRules(row, col) {
   const aliveNeighborsNum = countCellAliveNeighbors(row, col)
